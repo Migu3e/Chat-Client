@@ -18,43 +18,24 @@ namespace Program
             switch (option)
             {
                 case 1:
-                    Console.WriteLine("Enter Username");
-                    username = Console.ReadLine();
-                    Console.WriteLine("Enter Password");
-                    password = Console.ReadLine();
 
-                    if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                    {
-                        Console.WriteLine("Error: No Fields");
-                    }
-                    else
-                    {
-                        var db = FirestoreHelper.database;
-                        DocumentReference docRef = db.Collection("UserData").Document(username);
-                        DocumentSnapshot snapshot = docRef.GetSnapshotAsync().Result;
+                    bool loginCondition = false;
 
-                        if (snapshot.Exists)
-                        {
-                            UserData data = snapshot.ConvertTo<UserData>();
-                            if (password == data.Password)
-                            {
-                                Console.WriteLine("Login successful");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Password doesn't match");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Username doesn't exist");
-                        }
+                    while(!loginCondition)
+                    {
+                        Console.WriteLine("Enter Username");
+                        username = Console.ReadLine();
+                        Console.WriteLine("Enter Password");
+                        password = Console.ReadLine();
+                        loginCondition = LoginNewUser(username, password);
+
                     }
+
                     break;
 
                 case 2:
-                    bool condition = false;
-                    while (!condition)
+                    bool registerCondition = false;
+                    while (!registerCondition)
                     {
                         Console.WriteLine("Enter Username");
                         username = Console.ReadLine();
@@ -62,12 +43,14 @@ namespace Program
                         password = Console.ReadLine();
                         Console.WriteLine("Enter Email");
                         string email = Console.ReadLine();
-                        condition = RegisterNewUser(username, password, email);
+                        registerCondition = RegisterNewUser(username, password, email);
                     }
                     break;
             }
         }
 
+
+        // returns false if failed to register.
         public static bool RegisterNewUser(string currUsername, string currPassword, string currEmail)
         {
             if (string.IsNullOrEmpty(currUsername) || string.IsNullOrEmpty(currPassword) || string.IsNullOrEmpty(currEmail))
@@ -100,7 +83,46 @@ namespace Program
             Console.WriteLine("User registered successfully");
             return true;
         }
+        // returns false if failed to login.
+        public static bool LoginNewUser(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                Console.WriteLine("Error: No Fields");
+                return false;
+            }
+            else if (!CheckUsernameCondition(username) && !CheckPasswordCondition(password))
+            {
+                return false;
+            }
+            else
+            {
+                var db = FirestoreHelper.database;
+                DocumentReference docRef = db.Collection("UserData").Document(username);
+                DocumentSnapshot snapshot = docRef.GetSnapshotAsync().Result;
 
+                if (snapshot.Exists)
+                {
+                    UserData data = snapshot.ConvertTo<UserData>();
+                    if (password == data.Password)
+                    {
+                        Console.WriteLine("Login successful");
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Password doesn't match");
+                        return false;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Username doesn't exist");
+                    return false;
+                }
+            }
+
+        }
         public static bool CheckIfAlreadyExist(string currUsername, string currEmail)
         {
             var db = FirestoreHelper.database;
@@ -160,7 +182,6 @@ namespace Program
                 return false;
             }
         }
-
         public static bool CheckEmailCondition(string email)
         {
             if (!email.Contains("@gmail.com"))
