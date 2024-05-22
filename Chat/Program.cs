@@ -1,6 +1,5 @@
 ﻿using Client.Firestore;
 using Google.Cloud.Firestore;
-using Google.Cloud.Firestore;
 using System;
 
 namespace Program
@@ -123,6 +122,10 @@ namespace Program
             }
 
         }
+
+
+
+
         public static bool CheckIfAlreadyExist(string currUsername, string currEmail)
         {
             var db = FirestoreHelper.database;
@@ -132,7 +135,6 @@ namespace Program
 
             if (snapshotUser.Exists)
             {
-                Console.WriteLine("Username exists");
                 return true;
             }
 
