@@ -1,15 +1,12 @@
 ﻿using Client.Firestore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Chat.MainOperations;
 
 namespace Chat.ProgramOptions
 {
-    internal class ProgramOptions
+    public class ProgramOptions
     {
-        public static void Main(string[] args)
+        public void Program()
         {
             Console.WriteLine("1 - Login\n2 - Register");
             FirestoreHelper.SetEnvironmentVariable();
@@ -29,7 +26,8 @@ namespace Chat.ProgramOptions
                         username = Console.ReadLine();
                         Console.WriteLine("Enter Password");
                         password = Console.ReadLine();
-                        loginCondition = LoginNewUser(username, password);
+                        LoginFeature actionLogin = new LoginFeature();
+                        loginCondition = LoginFeature.LoginNewUser(username, password);
 
                     }
 
@@ -45,7 +43,8 @@ namespace Chat.ProgramOptions
                         password = Console.ReadLine();
                         Console.WriteLine("Enter Email");
                         string email = Console.ReadLine();
-                        registerCondition = RegisterNewUser(username, password, email);
+                        RegisterFeature actionRegister = new RegisterFeature();
+                        registerCondition = actionRegister.RegisterNewUser(username, password, email);
                     }
                     break;
             }

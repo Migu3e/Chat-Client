@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Chat.MainOperations
 {
-    internal class RegisterFeature
+    public class RegisterFeature
     {
-        public static bool RegisterNewUser(string currUsername, string currPassword, string currEmail)
+        public bool RegisterNewUser(string currUsername, string currPassword, string currEmail)
         {
             if (string.IsNullOrEmpty(currUsername) || string.IsNullOrEmpty(currPassword) || string.IsNullOrEmpty(currEmail))
             {
@@ -19,13 +19,13 @@ namespace Chat.MainOperations
             }
 
             var db = FirestoreHelper.database;
-            if (MainOperations.CheckIfAlreadyExist(currUsername, currEmail))
+            if (CheckOperations.CheckIfAlreadyExist(currUsername, currEmail))
             {
                 // Display message handled in CheckIfAlreadyExist
                 return false;
             }
 
-            if (!MainOperations.CheckEmailCondition(currEmail) & !MainOperations.CheckUsernameCondition(currUsername) && !MainOperations.CheckPasswordCondition(currPassword))
+            if (!CheckOperations.CheckEmailCondition(currEmail) || !CheckOperations.CheckUsernameCondition(currUsername) || !CheckOperations.CheckPasswordCondition(currPassword))
             {
                 return false;
             }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chat.MainOperations
 {
-    internal class LoginFeature
+    public class LoginFeature
     {
         
         public static bool LoginNewUser(string username, string password)
@@ -19,7 +19,7 @@ namespace Chat.MainOperations
                 Console.WriteLine("Error: No Fields");
                 return false;
             }
-            else if (!MainOperations.CheckUsernameCondition(username) && !MainOperations.CheckPasswordCondition(password))
+            else if (!CheckOperations.CheckUsernameCondition(username) && !CheckOperations.CheckPasswordCondition(password))
             {
                 return false;
             }

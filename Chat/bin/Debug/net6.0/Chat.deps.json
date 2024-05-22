@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "Chat/1.0.0": {
         "dependencies": {
-          "Google.Cloud.Firestore": "3.7.0"
+          "Google.Cloud.Firestore": "3.7.0",
+          "Google.Cloud.Firestore.V1": "3.7.0"
         },
         "runtime": {
           "Chat.dll": {}
