@@ -26,7 +26,7 @@ namespace Client.Firestore
 
         static string filePath = "";
         public static FirestoreDb? database { get; private set; }
-        public static void SetEnviornmentVariable()
+        public static void SetEnvironmentVariable()
         {
             filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(Path.GetRandomFileName()));
             File.WriteAllText(filePath, fireconfig);
