@@ -12,7 +12,9 @@ namespace Program
         {
             int Option = 0;
 
-            Console.WriteLine("1 - Login\n2 - Register");
+            Console.WriteLine("1 - Login" +
+                            "\n2 - Register");
+
             Option = int.Parse(Console.ReadLine());
             string username;
             string password;
@@ -87,40 +89,6 @@ namespace Program
 
 
         }
-        private async Task<bool> CheackIfAlreadyExistAsync(string currUsername,string currEmail )
-        {
-            string email = currUsername;
-            string username = currEmail;
-            var db = FirestoreHelper.database;
 
-            // Check if username exists
-            DocumentReference docRefUser = db.Collection("UserData").Document(username);
-
-            try
-            {
-                DocumentSnapshot snapshotUser = await docRefUser.GetSnapshotAsync();
-                if (snapshotUser.Exists)
-                {
-                    await Console.Out.WriteLineAsync("Username exists");
-                    return true; // Username exists in the database
-                }
-
-                // Check if email exists
-                Query emailQuery = db.Collection("UserData").WhereEqualTo("Email", email);
-                QuerySnapshot emailQuerySnapshot = await emailQuery.GetSnapshotAsync();
-                if (emailQuerySnapshot.Documents.Count > 0)
-                {
-                    await Console.Out.WriteLineAsync("Email exists");
-                    return true; // Email exists in the database
-                }
-
-                return false; // Neither username nor email exists
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error checking user existence: " + ex.Message);
-                return false; // Error occurred while retrieving data
-            }
-        }
     }
 }
