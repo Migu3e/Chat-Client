@@ -87,7 +87,7 @@ namespace ClientServer.Server
                     var catchUsername = messageString.Substring(0, separatorIndex);
                     var catchMessage = messageString.Substring(separatorIndex + 1);
 
-                    Console.WriteLine($"<{catchUsername}> {catchMessage}");
+                    Console.WriteLine($"<{catchUsername}>{catchMessage}");
 
                    
                 }
