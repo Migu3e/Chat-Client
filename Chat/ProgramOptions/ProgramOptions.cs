@@ -7,7 +7,7 @@ namespace ClientServer.ProgramOptions
     {
         public async Task Program()
         {
-            Console.WriteLine("1 - Login\n2 - Register");
+            Console.WriteLine("--------------------------------------------------\n1 - Login\n2 - Register\n--------------------------------------------------\n");
             FirestoreHelper.SetEnvironmentVariable();
             int option = int.Parse(Console.ReadLine());
             string username = null;

@@ -20,7 +20,7 @@ namespace ClientServer.ProgramOptions
 
         public async Task ProgramClient()
         {
-            Console.WriteLine("1 - Connect\n2 - Message");
+            Console.WriteLine("--------------------------------------------------\n1 - Connect\n2 - Message\n--------------------------------------------------\n");
             int option = int.Parse(Console.ReadLine());
             string username = this.username;
 
@@ -32,7 +32,7 @@ namespace ClientServer.ProgramOptions
 
                 case 2:
                     Server.Server server = new Server.Server(); // Use fully qualified name
-                    await server.ConnectToServer(); // Await the connection task
+                    await server.ConnectToServer(this.username); // Await the connection task
     
                     // Start receiving messages in the background
                     server.StartReceivingMessagesInBackground();
