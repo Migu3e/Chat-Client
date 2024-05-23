@@ -1,7 +1,7 @@
 ﻿using Client.Firestore;
 using Google.Cloud.Firestore;
 using System;
-using Chat.ProgramOptions;
+using ClientServer.ProgramOptions;
 
 var startProgram = new ProgramOptions();
-startProgram.Program();
+await startProgram.Program();

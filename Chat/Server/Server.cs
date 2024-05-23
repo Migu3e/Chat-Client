@@ -1,67 +1,106 @@
-﻿namespace Chat.Server;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
-public class Server
+namespace ClientServer.Server
 {
-    private IPHostEntry ipEntry;
-    private IPAddress ip;
-    
-
-    // connect the server socket to client socket
-    private IPEndPoint ipEndPoint;
-
-    private Socket client;
-    public async Task ConnectToServer()
+    public class Server
     {
-        
-        this.ipEntry = await Dns.GetHostEntryAsync(Dns.GetHostName());
+        public Server() {}
 
-        // extracting local host ip (127.0.1.1)
-        this.ip = ipEntry.AddressList[0];
+        private IPHostEntry ipEntry { get; set; }
+        private IPAddress ip { get; set; }
+        private IPEndPoint ipEndPoint { get; set; }
+        private Socket client { get; set; }
 
-        // connect the server socket to client socket
-        this.ipEndPoint = new(ip,1234);
-
-        this.client = new
-        (
-            ipEndPoint.AddressFamily,
-            SocketType.Stream,
-            ProtocolType.Tcp
-        );
-    
-        await client.ConnectAsync(ipEndPoint);
-            
-    }
-
-
-    public async Task<bool> SendMessege()
-    {
-        
-
-
-        while (true)
+        public async Task ConnectToServer()
         {
-            Console.WriteLine("send a messege:");
-            var message = Console.ReadLine();
-            if (message == "---")
+            try
             {
-                return false;
+                ipEntry = await Dns.GetHostEntryAsync(Dns.GetHostName());
+
+                // extracting local host ip (127.0.0.1)
+                ip = ipEntry.AddressList[0];
+
+                // connect the server socket to client socket
+                ipEndPoint = new IPEndPoint(ip, 1234);
+
+                client = new Socket(
+                    ipEndPoint.AddressFamily,
+                    SocketType.Stream,
+                    ProtocolType.Tcp
+                );
+
+                await client.ConnectAsync(ipEndPoint);
+                Console.WriteLine("Successfully connected to the server.");
             }
-            //covert byte to messeges
-            var messageBytes = Encoding.UTF8.GetBytes(message);
-
-            await this.client.SendAsync(messageBytes, SocketFlags.None);
-
-            var buffer = new byte[1_024];
-            //we recevived the messege in byte
-            var received = await client.ReceiveAsync(buffer, SocketFlags.None);
-
-
-            var messageString = Encoding.UTF8.GetString(buffer,0, received);
-
-            Console.WriteLine("recived message = " + messageString);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while connecting to the server: {ex.Message}");
+            }
         }
+        public async Task SendMessage(string username)
+        {
+            while (true)
+            {
+                Console.WriteLine("Enter a message:");
+                var message = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(message))
+                    break;
+
+                // Combine username and message separated by a delimiter
+                var combinedMessage = $"{username}|{message}";
+
+                // Convert combined message to bytes
+                var messageBytes = Encoding.UTF8.GetBytes(combinedMessage);
+
+                // Send the message
+                await this.SendMessageAsync(messageBytes);
+            }
+        }
+
+        public async Task ReceiveMessages()
+        {
+            while (true)
+            {
+                var buffer = new byte[1024];
+                // Receive response
+                var received = await client.ReceiveAsync(buffer, SocketFlags.None);
+
+                if (received > 0)
+                {
+                    var messageString = Encoding.UTF8.GetString(buffer, 0, received);
+                    Console.WriteLine(messageString);
+                }
+                else
+                {
+                    // Handle disconnection or empty message
+                    Console.WriteLine("Disconnected or received empty message.");
+                    break; // Exit the loop
+                }
+            }
+        }
+        public void StartReceivingMessagesInBackground()
+        {
+            _ = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await ReceiveMessages();
+                }
+            });
+        }
+
+
+        private async Task SendMessageAsync(byte[] messageBytes)
+        {
+            // Send the message
+            await this.client.SendAsync(messageBytes, SocketFlags.None);
+        }
+
+        
     }
 }
