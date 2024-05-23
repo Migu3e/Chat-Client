@@ -30,6 +30,7 @@ namespace Chat.ProgramOptions
                         loginCondition = LoginFeature.LoginNewUser(username, password);
 
                     }
+                    
 
                     break;
 
