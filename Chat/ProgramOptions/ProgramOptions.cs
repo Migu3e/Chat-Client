@@ -1,17 +1,16 @@
 ﻿using Client.Firestore;
+using ClientServer.MainOperations;
 
-using Chat.MainOperations;
-
-namespace Chat.ProgramOptions
+namespace ClientServer.ProgramOptions
 {
     public class ProgramOptions
     {
-        public void Program()
+        public async Task Program()
         {
             Console.WriteLine("1 - Login\n2 - Register");
             FirestoreHelper.SetEnvironmentVariable();
             int option = int.Parse(Console.ReadLine());
-            string username;
+            string username = null;
             string password;
 
             switch (option)
@@ -29,7 +28,11 @@ namespace Chat.ProgramOptions
                         LoginFeature actionLogin = new LoginFeature();
                         loginCondition = LoginFeature.LoginNewUser(username, password);
 
+                        
+
                     }
+                    ProgramClientOptions client = new ProgramClientOptions(username);
+                    await client.ProgramClient();
 
                     break;
 
