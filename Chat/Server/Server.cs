@@ -69,11 +69,27 @@ namespace ClientServer.Server
                 var buffer = new byte[1024];
                 // Receive response
                 var received = await client.ReceiveAsync(buffer, SocketFlags.None);
-
+        
                 if (received > 0)
                 {
                     var messageString = Encoding.UTF8.GetString(buffer, 0, received);
-                    Console.WriteLine(messageString);
+            
+                    int separatorIndex = -1;
+                    for (int i = 0; i < messageString.Length; i++)
+                    {
+                        if (messageString[i] == ':')
+                        {
+                            separatorIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    var catchUsername = messageString.Substring(0, separatorIndex);
+                    var catchMessage = messageString.Substring(separatorIndex + 1);
+
+                    Console.WriteLine($"<{catchUsername}> {catchMessage}");
+
+                   
                 }
                 else
                 {
@@ -83,6 +99,7 @@ namespace ClientServer.Server
                 }
             }
         }
+
         public void StartReceivingMessagesInBackground()
         {
             _ = Task.Run(async () =>
