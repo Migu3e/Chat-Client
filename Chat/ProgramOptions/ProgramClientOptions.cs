@@ -32,8 +32,11 @@ namespace ClientServer.ProgramOptions
 
                 case 2:
                     Server.Server server = new Server.Server(); // Use fully qualified name
-                    await server.ConnectToServer(this.username); // Await the connection task
-    
+                    Console.WriteLine("enter last 5 digits");
+                    string ipstring ="192.168."+ Console.ReadLine();
+                    IPAddress ip = IPAddress.Parse(ipstring);
+                    await server.ConnectToServer(this.username,ip); // Await the connection task
+                    
                     // Start receiving messages in the background
                     server.StartReceivingMessagesInBackground();
     

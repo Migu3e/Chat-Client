@@ -17,17 +17,14 @@ namespace ClientServer.Server
         private static bool isConnected{ get; set; }
         
 
-        public async Task ConnectToServer(string username)
+        public async Task ConnectToServer(string username,IPAddress sip)
         {
             try
             {
-                ipEntry = await Dns.GetHostEntryAsync(Dns.GetHostName());
 
-                // extracting local host ip (127.0.0.1)
-                ip = ipEntry.AddressList[0];
 
                 // connect the server socket to client socket
-                ipEndPoint = new IPEndPoint(ip, 1234);
+                ipEndPoint = new IPEndPoint(sip, 1234);
 
                 client = new Socket(
                     ipEndPoint.AddressFamily,
