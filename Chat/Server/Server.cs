@@ -57,7 +57,7 @@ namespace ClientServer.Server
                     Console.WriteLine("cannot send empty string");
                 }
 
-                // Combine username and message separated by a delimiter
+                // Combine username and message separated by a |
                 var combinedMessage = $"{username}|{message}";
 
                 // Convert combined message to bytes
