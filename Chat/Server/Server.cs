@@ -9,9 +9,6 @@ namespace ClientServer.Server
     public class Server
     {
         public Server() {}
-
-        private IPHostEntry ipEntry { get; set; }
-        private IPAddress ip { get; set; }
         private IPEndPoint ipEndPoint { get; set; }
         private Socket client { get; set; }
         private static bool isConnected{ get; set; }
@@ -21,8 +18,6 @@ namespace ClientServer.Server
         {
             try
             {
-
-
                 // connect the server socket to client socket
                 ipEndPoint = new IPEndPoint(sip, 1234);
 
@@ -67,11 +62,11 @@ namespace ClientServer.Server
                 await this.SendMessageAsync(messageBytes);
             }
         }
-        public void Disconnect()
+        private void Disconnect()
         {
             isConnected = false;
         }
-        public async Task ReceiveMessages()
+        private async Task ReceiveMessages()
         {
             while (isConnected)
             {
