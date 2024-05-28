@@ -1,4 +1,5 @@
-﻿using Client.Firestore;
+﻿using Chat.MainOperations;
+using Client.Firestore;
 using ClientServer.MainOperations;
 
 namespace ClientServer.ProgramOptions
@@ -25,11 +26,9 @@ namespace ClientServer.ProgramOptions
                         username = Console.ReadLine();
                         Console.WriteLine("Enter Password");
                         password = Console.ReadLine();
-                        LoginFeature actionLogin = new LoginFeature();
-                        loginCondition = LoginFeature.LoginNewUser(username, password);
 
+                        loginCondition = LoginAndRegister.LoginNewUser(username, password);
                         
-
                     }
                     ProgramClientOptions client = new ProgramClientOptions(username);
                     await client.ProgramClient();
@@ -46,8 +45,8 @@ namespace ClientServer.ProgramOptions
                         password = Console.ReadLine();
                         Console.WriteLine("Enter Email");
                         string email = Console.ReadLine();
-                        RegisterFeature actionRegister = new RegisterFeature();
-                        registerCondition = actionRegister.RegisterNewUser(username, password, email);
+                        registerCondition = LoginAndRegister.RegisterNewUser(username, password, email);
+
                     }
                     break;
             }

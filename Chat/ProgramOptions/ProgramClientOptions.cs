@@ -31,20 +31,24 @@ namespace ClientServer.ProgramOptions
                     break;
 
                 case 2:
-                    Server.Server server = new Server.Server(); // Use fully qualified name
+                    Server.ServerCommands server = new Server.ServerCommands(); // Use fully qualified name
                     Console.WriteLine("enter last 5 digits");
                     string ipstring ="192.168."+ Console.ReadLine();
                     IPAddress ip = IPAddress.Parse(ipstring);
                     await server.ConnectToServer(this.username,ip); // Await the connection task
-                    
-                    // Start receiving messages in the background
-                    server.StartReceivingMessagesInBackground();
-    
+
+                    server.SendInstractions();
                     var sendMessageTask = server.SendMessage(username);
+                    
                     // No need to explicitly start receiving messages here
 
                     // Wait for sending messages task to complete
                     await sendMessageTask;
+                    
+                    // Start receiving messages in the background
+                    server.StartReceivingMessagesInBackground();
+                    
+
                     break;
 
             }
