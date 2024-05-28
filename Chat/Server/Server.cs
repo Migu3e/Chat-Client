@@ -9,23 +9,17 @@ namespace ClientServer.Server
     public class Server
     {
         public Server() {}
-
-        private IPHostEntry ipEntry { get; set; }
-        private IPAddress ip { get; set; }
         private IPEndPoint ipEndPoint { get; set; }
         private Socket client { get; set; }
+        private static bool isConnected{ get; set; }
+        
 
-        public async Task ConnectToServer()
+        public async Task ConnectToServer(string username,IPAddress sip)
         {
             try
             {
-                ipEntry = await Dns.GetHostEntryAsync(Dns.GetHostName());
-
-                // extracting local host ip (127.0.0.1)
-                ip = ipEntry.AddressList[0];
-
                 // connect the server socket to client socket
-                ipEndPoint = new IPEndPoint(ip, 1234);
+                ipEndPoint = new IPEndPoint(sip, 1234);
 
                 client = new Socket(
                     ipEndPoint.AddressFamily,
@@ -33,8 +27,14 @@ namespace ClientServer.Server
                     ProtocolType.Tcp
                 );
 
+                
+                
                 await client.ConnectAsync(ipEndPoint);
                 Console.WriteLine("Successfully connected to the server.");
+                isConnected = true;
+                byte[] usernameBytes = Encoding.UTF8.GetBytes(username);
+                await client.SendAsync(usernameBytes, SocketFlags.None);
+
             }
             catch (Exception ex)
             {
@@ -43,15 +43,16 @@ namespace ClientServer.Server
         }
         public async Task SendMessage(string username)
         {
-            while (true)
+            while (isConnected)
             {
-                Console.WriteLine("Enter a message:");
                 var message = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(message))
-                    break;
+                {
+                    Console.WriteLine("cannot send empty string");
+                }
 
-                // Combine username and message separated by a delimiter
+                // Combine username and message separated by a |
                 var combinedMessage = $"{username}|{message}";
 
                 // Convert combined message to bytes
@@ -61,10 +62,13 @@ namespace ClientServer.Server
                 await this.SendMessageAsync(messageBytes);
             }
         }
-
-        public async Task ReceiveMessages()
+        private void Disconnect()
         {
-            while (true)
+            isConnected = false;
+        }
+        private async Task ReceiveMessages()
+        {
+            while (isConnected)
             {
                 var buffer = new byte[1024];
                 // Receive response
@@ -74,41 +78,36 @@ namespace ClientServer.Server
                 {
                     var messageString = Encoding.UTF8.GetString(buffer, 0, received);
             
-                    int separatorIndex = -1;
-                    for (int i = 0; i < messageString.Length; i++)
+                    int separatorIndex = messageString.IndexOf(':');
+                    if (separatorIndex != -1)
                     {
-                        if (messageString[i] == ':')
-                        {
-                            separatorIndex = i;
-                            break;
-                        }
+                        var catchUsername = messageString.Substring(0, separatorIndex);
+                        var catchMessage = messageString.Substring(separatorIndex + 1);
+
+                        Console.WriteLine($"<{catchUsername}>{catchMessage}");
                     }
-                    
-                    var catchUsername = messageString.Substring(0, separatorIndex);
-                    var catchMessage = messageString.Substring(separatorIndex + 1);
-
-                    Console.WriteLine($"<{catchUsername}>{catchMessage}");
-
-                   
+                    else
+                    {
+                        Console.WriteLine("Received message with invalid format.");
+                    }
                 }
                 else
                 {
-                    // Handle disconnection or empty message
-                    Console.WriteLine("Disconnected or received empty message.");
-                    break; // Exit the loop
+                    Disconnect();
+                    break;
                 }
             }
         }
 
-        public void StartReceivingMessagesInBackground()
+
+        public async Task StartReceivingMessagesInBackground()
         {
-            _ = Task.Run(async () =>
-            {
-                while (true)
+
+                while (isConnected)
                 {
                     await ReceiveMessages();
                 }
-            });
+
         }
 
 
