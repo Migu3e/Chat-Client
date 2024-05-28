@@ -1,12 +1,54 @@
 ﻿using Chat.Interfaces;
 using Client.Firestore;
 using ClientServer.MainOperations;
+using ClientServer.ProgramOptions;
 using Google.Cloud.Firestore;
 
 namespace Chat.MainOperations;
 
 public class LoginAndRegister : ILoginAndRegister
 {
+    public static async Task LoginUserAsync()
+    {
+        string username = null;
+        string password;
+        bool loginCondition = false;
+
+        while (!loginCondition)
+        {
+            Console.WriteLine("Enter Username");
+            username = Console.ReadLine();
+            Console.WriteLine("Enter Password");
+            password = Console.ReadLine();
+
+            loginCondition = LoginAndRegister.LoginNewUser(username, password);
+        }
+
+        ProgramClientOptions client = new ProgramClientOptions(username);
+        await client.ProgramClient();
+    }
+    public static async Task<Task> RegisterUserAsync()
+    {
+        string username = null;
+        string password;
+        string email;
+        bool registerCondition = false;
+
+        while (!registerCondition)
+        {
+            Console.WriteLine("Enter Username");
+            username = Console.ReadLine();
+            Console.WriteLine("Enter Password");
+            password = Console.ReadLine();
+            Console.WriteLine("Enter Email");
+            email = Console.ReadLine();
+
+            registerCondition = LoginAndRegister.RegisterNewUser(username, password, email);
+        }
+
+        return Task.CompletedTask;
+    }
+
     public static bool LoginNewUser(string username, string password)
     {
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
