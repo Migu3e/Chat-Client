@@ -3,6 +3,7 @@ using Client.Firestore;
 using ClientServer.MainOperations;
 using System;
 using System.Threading.Tasks;
+using Chat.Const;
 
 namespace ClientServer.ProgramOptions
 {
@@ -10,7 +11,7 @@ namespace ClientServer.ProgramOptions
     {
         public async Task Program()
         {
-            Console.WriteLine("--------------------------------------------------\n1 - Login\n2 - Register\n--------------------------------------------------\n");
+            Console.WriteLine(ConstMasseges.MenuProgramOptions);
             FirestoreHelper.SetEnvironmentVariable();
             int option = int.Parse(Console.ReadLine());
             

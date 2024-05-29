@@ -1,4 +1,5 @@
-﻿using Chat.Interfaces;
+﻿using Chat.Const;
+using Chat.Interfaces;
 using Client.Firestore;
 using ClientServer.MainOperations;
 using ClientServer.ProgramOptions;
@@ -16,9 +17,9 @@ public class LoginAndRegister : ILoginAndRegister
 
         while (!loginCondition)
         {
-            Console.WriteLine("Enter Username");
+            Console.WriteLine(ConstMasseges.EnterUsername);
             username = Console.ReadLine();
-            Console.WriteLine("Enter Password");
+            Console.WriteLine(ConstMasseges.EnterPassword);
             password = Console.ReadLine();
 
             loginCondition = LoginAndRegister.LoginNewUser(username, password);
@@ -36,11 +37,11 @@ public class LoginAndRegister : ILoginAndRegister
 
         while (!registerCondition)
         {
-            Console.WriteLine("Enter Username");
+            Console.WriteLine(ConstMasseges.EnterUsername);
             username = Console.ReadLine();
-            Console.WriteLine("Enter Password");
+            Console.WriteLine(ConstMasseges.EnterPassword);
             password = Console.ReadLine();
-            Console.WriteLine("Enter Email");
+            Console.WriteLine(ConstMasseges.EnterEmail);
             email = Console.ReadLine();
 
             registerCondition = LoginAndRegister.RegisterNewUser(username, password, email);
@@ -53,7 +54,7 @@ public class LoginAndRegister : ILoginAndRegister
     {
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         {
-            Console.WriteLine("Error: No Fields");
+            Console.WriteLine(ConstMasseges.OneOfFieldEmpty);
             return false;
         }
         else if (!CheckOperations.CheckUsernameCondition(username) && !CheckOperations.CheckPasswordCondition(password))
@@ -71,18 +72,18 @@ public class LoginAndRegister : ILoginAndRegister
                 UserData data = snapshot.ConvertTo<UserData>();
                 if (password == data.Password)
                 {
-                    Console.WriteLine("Login successful");
+                    Console.WriteLine(ConstMasseges.LoginSuccess);
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine("Password doesn't match");
+                    Console.WriteLine(ConstMasseges.PasswordIsIncorrect);
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("Username doesn't exist");
+                Console.WriteLine(ConstMasseges.UsernameDoesntExist);
                 return false;
             }
         }
@@ -94,7 +95,7 @@ public class LoginAndRegister : ILoginAndRegister
         if (string.IsNullOrEmpty(currUsername) || string.IsNullOrEmpty(currPassword) ||
             string.IsNullOrEmpty(currEmail))
         {
-            Console.WriteLine("Fields are empty");
+            Console.WriteLine(ConstMasseges.OneOfFieldEmpty);
             return false;
         }
 
@@ -121,7 +122,7 @@ public class LoginAndRegister : ILoginAndRegister
 
         DocumentReference docRef = db.Collection("UserData").Document(data.UserName);
         docRef.SetAsync(data).Wait(); // Using Wait() to make it synchronous
-        Console.WriteLine("User registered successfully");
+        Console.WriteLine(ConstMasseges.RegisteredSuccess);
         return true;
     }
 }
