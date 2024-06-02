@@ -17,8 +17,8 @@ namespace ClientServer.ProgramOptions
             
             await (option switch
                     {
-                        1 => LoginAndRegister.LoginUserAsync(),
-                        2 => LoginAndRegister.RegisterUserAsync(),
+                        1 => Login.LoginUserAsync(),
+                        2 => Register.RegisterUserAsync(),
                         _ => throw new InvalidOperationException("Invalid option")
                     }
                 );
