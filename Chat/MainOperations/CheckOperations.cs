@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chat.Const;
+using Chat.Interfaces;
 
 namespace ClientServer.MainOperations
 {
@@ -28,7 +30,7 @@ namespace ClientServer.MainOperations
 
             if (emailQuerySnapshot.Count > 0)
             {
-                Console.WriteLine("Email exists");
+                Console.WriteLine(ConstMasseges.EmailAlreadyExist);
                 return true;
             }
 
@@ -42,7 +44,7 @@ namespace ClientServer.MainOperations
             }
             else
             {
-                Console.WriteLine("user needs at least 3 characters");
+                Console.WriteLine(ConstMasseges.UsernameToShort);
                 return false;
             }
 
@@ -67,12 +69,12 @@ namespace ClientServer.MainOperations
                 }
                 else
                 {
-                    Console.WriteLine("Password needs to contain at least 7 characters and at least one number(or only numbers)");
+                    Console.WriteLine(ConstMasseges.PasswordNeedsToContainNumbers);
                     return false;
                 }            }
             else
             {
-                Console.WriteLine("Password needs at least 7 characters");
+                Console.WriteLine(ConstMasseges.PasswordTooShort);
                 return false;
             }
             
@@ -83,7 +85,7 @@ namespace ClientServer.MainOperations
         {
             if (!email.Contains("@gmail.com"))
             {
-                Console.WriteLine("Email is not legal");
+                Console.WriteLine(ConstMasseges.EmailAlreadyExist);
                 return false;
             }
             return true;

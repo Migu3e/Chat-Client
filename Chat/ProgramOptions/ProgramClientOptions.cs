@@ -6,49 +6,48 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Chat.Const;
 
 namespace ClientServer.ProgramOptions
 {
-    public class ProgramClientOptions
+    public class ProgramClientOptions : IProgramClientOptions
     {
-        private string username;
+        public string Username { get; private set; }
 
         public ProgramClientOptions(string username)
         {
-            this.username = username;
+            this.Username = username;
         }
 
         public async Task ProgramClient()
         {
-            Console.WriteLine("--------------------------------------------------\n1 - Connect\n2 - Message\n--------------------------------------------------\n");
+            Console.WriteLine(ConstMasseges.MenuProgramClient);
             int option = int.Parse(Console.ReadLine());
-            string username = this.username;
+            string username = this.Username;
 
             switch (option)
             {
                 case 1:
-                    // Connect logic here
-                    break;
-
-                case 2:
                     Server.Server server = new Server.Server(); // Use fully qualified name
-                    Console.WriteLine("enter last 5 digits");
-                    string ipstring ="192.168."+ Console.ReadLine();
+                    Console.WriteLine(ConstMasseges.EnterFiveDigits);
+                    string ipstring = "192.168." + Console.ReadLine();
                     IPAddress ip = IPAddress.Parse(ipstring);
-                    await server.ConnectToServer(this.username,ip); // Await the connection task
+                    await server.ServerCommands.ConnectToServer(username,ip); // Await the connection task
+
                     
-                    // Start receiving messages in the background
-                    server.StartReceivingMessagesInBackground();
-    
-                    var sendMessageTask = server.SendMessage(username);
+                    _ = server.RecieveMassage.StartReceivingMessagesInBackground();
+
+                    
+                    await server.MassegeSend.SendMessage(username);
+
                     // No need to explicitly start receiving messages here
 
-                    // Wait for sending messages task to complete
-                    await sendMessageTask;
-                    break;
 
+
+                    // Start receiving messages in the background
+
+                    break;
             }
         }
-
     }
 }
