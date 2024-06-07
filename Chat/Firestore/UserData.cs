@@ -1,22 +1,20 @@
-﻿using Google.Cloud.Firestore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace Client.Firestore
+namespace Client.MongoDB
 {
-    [FirestoreData]
-    class UserData
+    public class UserData
     {
-        [FirestoreProperty]
+        [BsonId]
+        public ObjectId Id { get; set; }
+
+        [BsonElement("UserName")]
         public string UserName { get; set; }
 
-        [FirestoreProperty]
+        [BsonElement("Password")]
         public string Password { get; set; }
 
-        [FirestoreProperty]
+        [BsonElement("Email")]
         public string Email { get; set; }
     }
 }

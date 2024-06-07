@@ -1,5 +1,5 @@
 ﻿using Chat.MainOperations;
-using Client.Firestore;
+using Client.MongoDB;
 using ClientServer.MainOperations;
 using System;
 using System.Threading.Tasks;
@@ -12,7 +12,6 @@ namespace ClientServer.ProgramOptions
         public async Task Program()
         {
             Console.WriteLine(ConstMasseges.MenuProgramOptions);
-            FirestoreHelper.SetEnvironmentVariable();
             int option = int.Parse(Console.ReadLine());
             
             await (option switch
@@ -24,9 +23,5 @@ namespace ClientServer.ProgramOptions
                 );
             
         }
-
-
-
-
     }
 }

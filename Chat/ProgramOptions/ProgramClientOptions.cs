@@ -1,5 +1,5 @@
 ﻿using ClientServer.MainOperations;
-using Client.Firestore;
+using Client.MongoDB;
 using ClientServer.Server;
 using System;
 using System.Net;
@@ -30,7 +30,7 @@ namespace ClientServer.ProgramOptions
                 case 1:
                     Server.Server server = new Server.Server(); // Use fully qualified name
                     Console.WriteLine(ConstMasseges.EnterFiveDigits);
-                    string ipstring = "192.168." + Console.ReadLine();
+                    string ipstring = "10.0." + Console.ReadLine();
                     IPAddress ip = IPAddress.Parse(ipstring);
                     await server.ServerCommands.ConnectToServer(username,ip); // Await the connection task
 

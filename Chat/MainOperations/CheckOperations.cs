@@ -1,4 +1,4 @@
-﻿using Client.Firestore;
+﻿using Client.MongoDB;
 using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
@@ -7,28 +7,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Chat.Const;
 using Chat.Interfaces;
+using MongoDB.Driver;
+
 
 namespace ClientServer.MainOperations
 {
     static class CheckOperations
     {
-
         public static bool CheckIfAlreadyExist(string currUsername, string currEmail)
         {
-            var db = FirestoreHelper.database;
+            var collection = MongoDBHelper.GetCollection<UserData>("dataclient");
 
-            DocumentReference docRefUser = db.Collection("UserData").Document(currUsername);
-            DocumentSnapshot snapshotUser = docRefUser.GetSnapshotAsync().Result;
-
-            if (snapshotUser.Exists)
+            var userExists = collection.Find(u => u.UserName == currUsername).Any();
+            if (userExists)
             {
                 return true;
             }
 
-            Query emailQuery = db.Collection("UserData").WhereEqualTo("Email", currEmail);
-            QuerySnapshot emailQuerySnapshot = emailQuery.GetSnapshotAsync().Result;
-
-            if (emailQuerySnapshot.Count > 0)
+            var emailExists = collection.Find(u => u.Email == currEmail).Any();
+            if (emailExists)
             {
                 Console.WriteLine(ConstMasseges.EmailAlreadyExist);
                 return true;
@@ -36,6 +33,7 @@ namespace ClientServer.MainOperations
 
             return false;
         }
+
         public static bool CheckUsernameCondition(string Username)
         {
             if (Username.Length >= 3)
@@ -47,40 +45,21 @@ namespace ClientServer.MainOperations
                 Console.WriteLine(ConstMasseges.UsernameToShort);
                 return false;
             }
-
         }
+
         public static bool CheckPasswordCondition(string Password)
         {
-            if (Password.Length >= 7)
+            if (Password.Length >= 7 && Password.Any(char.IsDigit))
             {
-                if (Password.Contains("0") ||
-                    Password.Contains("1") ||
-                    Password.Contains("2") ||
-                    Password.Contains("3") ||
-                    Password.Contains("4") ||
-                    Password.Contains("5") ||
-                    Password.Contains("6") ||
-                    Password.Contains("7") ||
-                    Password.Contains("8") ||
-                    Password.Contains("9"))
-                {
-
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine(ConstMasseges.PasswordNeedsToContainNumbers);
-                    return false;
-                }            }
+                return true;
+            }
             else
             {
-                Console.WriteLine(ConstMasseges.PasswordTooShort);
+                Console.WriteLine(ConstMasseges.PasswordNeedsToContainNumbers);
                 return false;
             }
-            
-            
-
         }
+
         public static bool CheckEmailCondition(string email)
         {
             if (!email.Contains("@gmail.com"))
