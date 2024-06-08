@@ -15,37 +15,28 @@ public class ServerRecieveMassege: IServerRecieveMassage
     }
     public async Task ReceiveMessages()
     {
-        while (true)
-        {
+        
             var buffer = new byte[1024];
 
             // Receive response
             var received = await ServerCommands.client.ReceiveAsync(buffer, SocketFlags.None);
 
-            if (received > 0)
-            {
-                var messageString = Encoding.UTF8.GetString(buffer, 0, received);
+            var messageString = Encoding.UTF8.GetString(buffer, 0, received);
+            var formattedMessage = await ChangeMessage(messageString);
 
-                int separatorIndex = messageString.IndexOf(':');
-                if (separatorIndex != -1)
-                {
-                    var catchUsername = messageString.Substring(0, separatorIndex);
-                    var catchMessage = messageString.Substring(separatorIndex + 1);
-
-                    Console.WriteLine($"<{catchUsername}>{catchMessage}");
-                }
-                else
-                {
-                    Console.WriteLine("Received message with invalid format.");
-                }
-            }
-            else
-            {
-                ServerCommands.Disconnect();
-                break;
-            }
-        }
+            Console.WriteLine(formattedMessage);
+        
     }
+    public async Task<string> ChangeMessage(string messageString)
+    {
+        if (messageString.StartsWith("<"))
+        {
+            return messageString;
+        }
+
+        return messageString;
+    }
+
 
     public async Task StartReceivingMessagesInBackground()
     {
