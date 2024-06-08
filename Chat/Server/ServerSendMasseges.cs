@@ -27,6 +27,20 @@ public class ServerSendMasseges : IServerSendMassege
                 continue;
             }
 
+            if (message.StartsWith("/leave"))
+            {
+                Console.Clear();
+            }
+
+            if (message.StartsWith("/jroom"))
+            {
+                Console.Clear();
+            }
+            if (message.StartsWith("/private"))
+            {
+                Console.Clear();
+            }
+
             // Combine username and message separated by a |
             var combinedMessage = $"{username}|{message}";
 
