@@ -26,7 +26,7 @@ public class ConstMasseges
 
     public const string ConnectedToServerSuccess = "Successfully Connected To The Server";
     
-    public const string EnterFiveDigits = "Enter The Last IP digits: (xx.xxx)";
+    public const string EnterFiveDigits = "Enter The Last IP digits: (xxx.xx)";
     public const string HelpMessage = "The commands are:\n" +
                                       "/list - Display the connected users\n" +
                                       "/logout - Disconnect from the server\n" +

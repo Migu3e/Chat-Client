@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Chat.Const;
 using Client.MongoDB;
 using ClientServer.MainOperations;
+using ClientServer.ProgramOptions;
 
 namespace Chat.MainOperations
 {
@@ -64,8 +65,6 @@ namespace Chat.MainOperations
 
                 registerCondition = RegisterNewUser(username, password, email);
             }
-
-            await Task.CompletedTask;
         }
     }
 }

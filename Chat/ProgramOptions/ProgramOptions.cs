@@ -11,17 +11,29 @@ namespace ClientServer.ProgramOptions
     {
         public async Task Program()
         {
-            Console.WriteLine(ConstMasseges.MenuProgramOptions);
-            int option = int.Parse(Console.ReadLine());
-            
-            await (option switch
-                    {
-                        1 => Login.LoginUserAsync(),
-                        2 => Register.RegisterUserAsync(),
-                        _ => throw new InvalidOperationException("Invalid option")
-                    }
-                );
-            
+            bool exit = false;
+    
+            while (!exit)
+            {
+                Console.WriteLine(ConstMasseges.MenuProgramOptions);
+                string option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        await Login.LoginUserAsync();
+                        break;
+                    case "2":
+                        await Register.RegisterUserAsync();
+                        break;
+                    case "exit":
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
         }
     }
 }
