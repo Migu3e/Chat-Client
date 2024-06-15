@@ -38,6 +38,7 @@ namespace ClientServer.Server
                 IsConnected = true;
                 byte[] usernameBytes = Encoding.UTF8.GetBytes(username);
                 await client.SendAsync(usernameBytes, SocketFlags.None);
+                Console.WriteLine(ConstMasseges.HelpMessage);
             }
             catch (Exception ex)
             {

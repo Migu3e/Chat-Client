@@ -89,3 +89,16 @@ C:\Users\Itay\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\ZstdSharp.dll
 C:\Users\Itay\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\runtimes\linux\native\libmongocrypt.so
 C:\Users\Itay\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\runtimes\osx\native\libmongocrypt.dylib
 C:\Users\Itay\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\runtimes\win\native\mongocrypt.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\AWSSDK.Core.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\AWSSDK.SecurityToken.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\DnsClient.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\MongoDB.Bson.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\MongoDB.Driver.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\MongoDB.Driver.Core.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\MongoDB.Libmongocrypt.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\SharpCompress.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\Snappier.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\ZstdSharp.dll
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\runtimes\linux\native\libmongocrypt.so
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\runtimes\osx\native\libmongocrypt.dylib
+C:\Users\itaym\RiderProjects\Chat-Client\Chat\bin\Debug\net7.0\runtimes\win\native\mongocrypt.dll
