@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\itaym\\source\\repos\\Chat\\Chat\\Chat.csproj": {}
+    "C:\\Users\\itaym\\RiderProjects\\Chat-Client\\Chat\\Chat.csproj": {}
   },
   "projects": {
-    "C:\\Users\\itaym\\source\\repos\\Chat\\Chat\\Chat.csproj": {
+    "C:\\Users\\itaym\\RiderProjects\\Chat-Client\\Chat\\Chat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\itaym\\source\\repos\\Chat\\Chat\\Chat.csproj",
+        "projectUniqueName": "C:\\Users\\itaym\\RiderProjects\\Chat-Client\\Chat\\Chat.csproj",
         "projectName": "Chat",
-        "projectPath": "C:\\Users\\itaym\\source\\repos\\Chat\\Chat\\Chat.csproj",
+        "projectPath": "C:\\Users\\itaym\\RiderProjects\\Chat-Client\\Chat\\Chat.csproj",
         "packagesPath": "C:\\Users\\itaym\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\itaym\\source\\repos\\Chat\\Chat\\obj\\",
+        "outputPath": "C:\\Users\\itaym\\RiderProjects\\Chat-Client\\Chat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\itaym\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -37,12 +37,20 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "Google.Cloud.Firestore": {
               "target": "Package",
               "version": "[3.7.0, )"
+            },
+            "Google.Cloud.Firestore.V1": {
+              "target": "Package",
+              "version": "[3.7.0, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.25.0, )"
             }
           },
           "imports": [
