@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Chat.Const;
+using Chat.Encryption;
 using ClientServer.MainOperations;
 
 namespace Chat.MainOperations
 {
     public class Register
     {
-        public static bool RegisterNewUser(string currUsername, string currPassword, string currEmail)
+        public static bool RegisterNewUser(string currUsername, string currPassword, string currEmail,string enpassword)
         {
             if (string.IsNullOrEmpty(currUsername) || string.IsNullOrEmpty(currPassword) ||
                 string.IsNullOrEmpty(currEmail))
@@ -37,7 +38,7 @@ namespace Chat.MainOperations
             var data = new UserData
             {
                 UserName = currUsername,
-                Password = currPassword,
+                Password = enpassword,
                 Email = currEmail
             };
 
@@ -63,10 +64,13 @@ namespace Chat.MainOperations
                 username = Console.ReadLine();
                 Console.WriteLine(ConstMasseges.EnterPassword);
                 password = Console.ReadLine();
+                Encrypt encrypt = new Encrypt();
+                string enpassword = encrypt.encrypt(password);
+
                 Console.WriteLine(ConstMasseges.EnterEmail);
                 email = Console.ReadLine();
 
-                registerCondition = RegisterNewUser(username, password, email);
+                registerCondition = RegisterNewUser(username, password, email,enpassword);
             }
         }
 
