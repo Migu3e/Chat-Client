@@ -1,4 +1,5 @@
 ﻿using Chat.Const;
+using Chat.Encryption;
 using Chat.Interfaces;
 using Client.MongoDB;
 using ClientServer.MainOperations;
@@ -46,10 +47,11 @@ public class Login
             {
                 var collection = MongoDBHelper.GetCollection<UserData>(ConstMasseges.CollectionDataClient);
                 var user = collection.Find(u => u.UserName == username).FirstOrDefault();
+                Decrypt decrypt = new Decrypt();
 
                 if (user != null)
                 {
-                    if (password == user.Password)
+                    if (password == decrypt.decrypt(user.Password))
                     {
                         Console.WriteLine(ConstMasseges.LoginSuccess);
                         return true;
