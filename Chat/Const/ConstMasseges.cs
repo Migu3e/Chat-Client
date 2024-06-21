@@ -43,4 +43,10 @@ public class ConstMasseges
 
     public const int ipPort = 1234;
     
+    public const string DatabaseConnection = "mongodb+srv://pc:123123gg123123@cluster0.tjadqzu.mongodb.net/";
+    public const string DatabaseName = "chats";
+    public const string CollectionDataClient = "dataclient";    
+    public const string CollectionChats = "chats";    
+
+
 }

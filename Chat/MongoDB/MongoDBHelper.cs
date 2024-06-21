@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Chat.Const;
+using MongoDB.Driver;
 
 namespace Client.MongoDB
 {
@@ -9,10 +10,10 @@ namespace Client.MongoDB
         static MongoDBHelper()
         {
             // MongoDB connection string
-            var client = new MongoClient("mongodb+srv://pc:123123gg123123@cluster0.tjadqzu.mongodb.net/");
+            var client = new MongoClient(ConstMasseges.DatabaseConnection);
             
             // Database name
-            database = client.GetDatabase("client");
+            database = client.GetDatabase(ConstMasseges.DatabaseName);
         }
 
         public static IMongoCollection<T> GetCollection<T>(string collectionName)
