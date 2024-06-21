@@ -32,18 +32,6 @@ namespace ClientServer.ProgramOptions
             
             _ = server.RecieveMassage.StartReceivingMessagesInBackground();
             await server.MassegeSend.SendMessage(username);
-
-            // No need to explicitly start receiving messages here
-
-
-
-            // Start receiving messages in the background
-
-               
-                
-                
-            
-            
         }
     }
 }
