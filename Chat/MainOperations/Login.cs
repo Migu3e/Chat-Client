@@ -44,7 +44,7 @@ public class Login
             }
             else
             {
-                var collection = MongoDBHelper.GetCollection<UserData>("dataclient");
+                var collection = MongoDBHelper.GetCollection<UserData>(ConstMasseges.CollectionDataClient);
                 var user = collection.Find(u => u.UserName == username).FirstOrDefault();
 
                 if (user != null)

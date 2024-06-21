@@ -74,8 +74,8 @@ namespace Chat.MainOperations
         {
             try
             {
-                var collection = MongoDBHelper.GetCollection<RoomDB>("chats");
-                var clientsCollection = MongoDBHelper.GetCollection<UserData>("dataclient");
+                var collection = MongoDBHelper.GetCollection<RoomDB>(ConstMasseges.CollectionChats);
+                var clientsCollection = MongoDBHelper.GetCollection<UserData>(ConstMasseges.CollectionDataClient);
 
                 // Get all clients from the database
                 var existingClients = await clientsCollection.Find(_ => true).ToListAsync();
@@ -114,7 +114,6 @@ namespace Chat.MainOperations
                     }
                 }
 
-                // Perform a batch insertion for all new rooms
                 if (newRooms.Count > 0)
                 {
                     await collection.InsertManyAsync(newRooms);
