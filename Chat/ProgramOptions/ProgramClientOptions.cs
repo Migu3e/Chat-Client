@@ -24,8 +24,9 @@ namespace ClientServer.ProgramOptions
             string username = this.Username;
 
             Server.Server server = new Server.Server(); // Use fully qualified name
-            Console.WriteLine(ConstMasseges.EnterFiveDigits);
-            string ipstring = "10.0.0.30" + Console.ReadLine();
+            Console.Write(ConstMasseges.EnterFiveDigits);
+            string ipstring = Console.ReadLine();
+            Console.WriteLine(ConstMasseges.AfterIp);
             IPAddress ip = IPAddress.Parse(ipstring);
             await server.ServerCommands.ConnectToServer(username,ip); // Await the connection task
 

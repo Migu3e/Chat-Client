@@ -60,6 +60,7 @@ namespace Chat.MainOperations
 
             while (!registerCondition)
             {
+                Console.WriteLine(ConstMasseges.CreationConditions);
                 Console.WriteLine(ConstMasseges.EnterUsername);
                 username = Console.ReadLine();
                 Console.WriteLine(ConstMasseges.EnterPassword);

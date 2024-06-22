@@ -1,4 +1,6 @@
-﻿namespace Chat.Const;
+﻿using Google.Apis.Http;
+
+namespace Chat.Const;
 
 public class ConstMasseges
 {
@@ -26,7 +28,9 @@ public class ConstMasseges
 
     public const string ConnectedToServerSuccess = "Successfully Connected To The Server";
     
-    public const string EnterFiveDigits = "Enter The Last IP digits: (xxx.xx)";
+    public const string EnterFiveDigits = "\n-----------------------------------\nEnter The Full IP digits:\n----->";
+    public const string AfterIp = "-----------------------------------\n";
+
     public const string HelpMessage = "The commands are:\n" +
                                       "/list - Display the connected users\n" +
                                       "/logout - Disconnect from the server\n" +
@@ -46,7 +50,10 @@ public class ConstMasseges
     public const string DatabaseConnection = "mongodb+srv://pc:123123gg123123@cluster0.tjadqzu.mongodb.net/";
     public const string DatabaseName = "chats";
     public const string CollectionDataClient = "dataclient";    
-    public const string CollectionChats = "chats";    
+    public const string CollectionChats = "chats";
+
+    public const string CreationConditions = "To Create A User It Must Have:\n<-> Username Is At Least 3 Charecters Long\n<-> Password Be At Least 7 Long\n<-> Password Must Inclode At Least One Number\n<-> Email Must Have '@gmail.com'";
+    
 
 
 }
