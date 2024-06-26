@@ -53,7 +53,4 @@ public class ConstMasseges
     public const string CollectionChats = "chats";
 
     public const string CreationConditions = "To Create A User It Must Have:\n<-> Username Is At Least 3 Charecters Long\n<-> Password Be At Least 7 Long\n<-> Password Must Inclode At Least One Number\n<-> Email Must Have '@gmail.com'";
-    
-
-
 }
