@@ -4,7 +4,7 @@ using Chat.Interfaces;
 
 namespace ClientServer.Server
 {
-    public class Server : IServer
+    public class Server
     {
         
         public Server()
