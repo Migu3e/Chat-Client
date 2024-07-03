@@ -30,7 +30,7 @@ namespace ClientServer.ProgramOptions
             IPAddress ip = IPAddress.Parse(ipstring);
             await server.ServerCommands.ConnectToServer(username,ip); // Await the connection task
 
-            
+
             _ = server.RecieveMassage.StartReceivingMessagesInBackground();
             await server.MassegeSend.SendMessage(username);
         }

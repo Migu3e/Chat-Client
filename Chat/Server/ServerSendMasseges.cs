@@ -7,9 +7,9 @@ namespace ClientServer.Server;
 
 public class ServerSendMasseges : IServerSendMassege
 {
-    private IServerCommands ServerCommands { set; get; }
+    private ServerCommands ServerCommands { set; get; }
 
-    public ServerSendMasseges(IServerCommands serverCommands)
+    public ServerSendMasseges(ServerCommands serverCommands)
     {
         ServerCommands = serverCommands;
     }

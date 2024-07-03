@@ -21,9 +21,9 @@ namespace ClientServer.Server
         public Socket client { get; set; }
         public bool IsConnected { get; set; }
 
-        public IServerCommands ServerCommands { get; set; }
-        public IServerRecieveMassage RecieveMassage{ get; set; }
-        public IServerSendMassege MassegeSend { get; set; }
+        public ServerCommands ServerCommands { get; set; }
+        public ServerRecieveMassege RecieveMassage{ get; set; }
+        public ServerSendMasseges MassegeSend { get; set; }
         
 
     }

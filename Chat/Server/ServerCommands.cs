@@ -17,8 +17,8 @@ namespace ClientServer.Server
         public bool IsConnected { get; set; }
         
         
-        IServerRecieveMassage IServerCommands._recieveMassage { get; set; }
-        IServerSendMassege IServerCommands._sendMassege  { get; set; }
+        ServerSendMasseges SendMasseges { get; set; }
+        ServerRecieveMassege RecieveMassege  { get; set; }
         
         public async Task ConnectToServer(string username, IPAddress sip)
         {

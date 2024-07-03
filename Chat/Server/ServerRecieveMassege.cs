@@ -7,9 +7,9 @@ namespace ClientServer.Server;
 
 public class ServerRecieveMassege: IServerRecieveMassage
 {
-    private IServerCommands ServerCommands { set; get; }
+    private ServerCommands ServerCommands { set; get; }
 
-    public ServerRecieveMassege(IServerCommands serverCommands)
+    public ServerRecieveMassege(ServerCommands serverCommands)
     {
         ServerCommands = serverCommands;
     }
